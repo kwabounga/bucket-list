@@ -41,7 +41,6 @@
 /bin/*
 !bin/console
 !bin/symfony_requirements
-/vendor/
 
 # Assets and user uploads
 /web/bundles/
@@ -62,3 +61,8 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_rebase_[Default_Changelist]1/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml
+/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_1.xml
+/.idea/workspace.xml
