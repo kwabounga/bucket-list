@@ -1,0 +1,29 @@
+<script>
+    $(document).ready(function(){
+        // ...affichage des flashs via des toasts'
+        // cf: bootstrap.html.twig
+        $(".toast").toast('show');
+        // initialise l'auto refresh ds un try catch pour les page ou ca nexiste pas
+        console.log('ahaahah')
+        try {
+            console.log("{{ path('home') }}");
+            if (window.location.pathname == "{{ path('home') }}" ) {
+                console.log('initRefreshRandom');
+                // return un interval
+                //cf: random_auto_refresh.html.twig
+                const t = initRefreshRandom();
+                // desactive apres 1 minutes sur la page pour éviter les requêtes à l'infini
+                setTimeout(clearRefreshRandom, 60000, [t]);
+            }
+        } catch (e) {
+            console.log('KEKEKK',e)
+        }
+
+        //highlight
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+
+
+    });
+</script>

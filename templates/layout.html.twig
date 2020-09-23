@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block winTitle %}Titre Provisoire{% endblock %}</title>
+    {% include 'parts/scripts/bootstrap.html.twig' %}
+
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    {% include 'parts/css/bootstrap.html.twig' %}
+    {% include 'parts/css/css.html.twig' %}
+
+</head>
+<body>
+{% include 'parts/html/nav.html.twig' %}
+    <div class="container-fluid">
+
+        {% include 'parts/html/toasts.html.twig' %}
+        <header>
+
+            <h1>{% block title %}Titre Provisoire{% endblock %}</h1>
+        </header>
+
+
+        <main>
+            {% block main %}à remplacer{% endblock %}
+        </main>
+
+
+
+
+    </div>
+    {% include 'parts/html/footer.html.twig' %}
+
+    {% include 'parts/scripts/init.html.twig' %}
+    {% include 'parts/scripts/highlight.html.twig' %}
+
+</body>
+</html>

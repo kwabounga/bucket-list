@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+{% block winTitle %} {{controller_name|capitalize }} {% endblock %}
+{% block title %} {{controller_name|capitalize }} {% endblock %}
+{% block main  %}
+    <h3>liste de chose a faire dans sa vie</h3>
+
+    <ul class="list-group">
+        {% for idea in ideas %}
+                <a id="idea_{{ idea.id }}" class="list-group-item list-group-item-action idea {% for ideaCheked in  checked_json  %} {% if ideaCheked.idea_id == idea.id %} list-group-item-success {% endif %} {% endfor %}" href="{{ path('idea_detail', {'id': idea.id}) }}">{{ idea.title }} <span class="badge badge-primary badge-pill">{{ idea.category.name|default('sans categorie') }}</span></a>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'layout.html.twig' %}
+{% block winTitle %} About Us {% endblock %}
+{% block title %} About Us {% endblock %}
+{% block main  %}
+
+
+
+    <h1>{{ 'page à propos'|capitalize }}</h1>
+    <p>Details des technos et trucs utilisés pour faire le site</p>
+    <div class="card-columns">
+        <div class="card">
+                <h4 class="card-header">Messages Flash</h4>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted"><q>addFlash(type, message</q>)</h6>
+                <p class="card-text">
+                    Ajoute du message flash dans le controleur,
+                    puis recuperation dans le fichier twig
+<br><a href="{{ path('about') }}" class="card-link">Apropos</a>
+<pre><code id="toCopy" class="handlebar">{% verbatim  %}{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        // creation du toast
+    {% endfor %}
+{% endfor %}{% endverbatim %}</code></pre>
+                </p>
+                <input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy">
+
+            </div>
+        </div>
+        <div class="card">
+                <h4 class="card-header">Toasts</h4>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Bootstrap toast</h6>
+                <p class="card-text">
+                    initalisation avec
+                    <pre><code class="js">$(".toast").toast('show');
+                    </code></pre>
+                <button onclick=" $('.toast').toast('show');" class="btn btn-sm btn-outline-secondary">Display toasts!</button><br>
+                    créer d'un toast avec bootstrap
+<pre><code id="toCopy2" class="html">{% verbatim  %}&lt;div class=&quot;toast fade show {{ label }}-toast&quot; data-autohide=&quot;{{ label == 'warning' ? 'false': 'true' }}&quot; data-delay=&quot;2500&quot;&gt;
+    &lt;div class=&quot;toast-header&quot;&gt;
+        &lt;img src=&quot;{{ asset('img/logo.png') }}&quot; class=&quot;rounded mr-2 {{ label }}-filter&quot; style=&quot;width: 1.5em; height: auto&quot; alt=&quot;...&quot;&gt;
+        &lt;strong class=&quot;mr-auto&quot;&gt;Message&lt;/strong&gt;
+        &lt;small&gt;il y a 2 sec&lt;/small&gt;
+        &lt;button type=&quot;button&quot; class=&quot;ml-2 mb-1 close&quot; data-dismiss=&quot;toast&quot; aria-label=&quot;Close&quot;&gt;
+            &lt;span aria-hidden=&quot;true&quot;&gt;&times;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;toast-body&quot;&gt;
+        {{ message }}
+    &lt;/div&gt;
+&lt;/div&gt;{% endverbatim %}</code></pre>
+                </p>
+                <br><input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy2">
+
+
+            </div>
+        </div>
+        <div class="card bg-primary text-white">
+                <h4 class="card-header">Search bar</h4>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-white">(post)</h6>
+                <p class="card-text">
+                <ul>
+                    <li><span class="">creation d'un formulaire doctrine</span></li>
+                    <li><span class="">recuperation de la soumission dans la route home</span></li>
+                    <li><span class="">definition d'une requete perso dans le Repository</span></li>
+                    <li><span class="">affichage de la list dans le fichier twig</span></li>
+                </ul>
+
+                </p>
+                <a href="{{ path('about') }}#search_title" class="btn btn-light text-info ">Recherche</a>
+            </div>
+        </div>
+        {% include 'parts/scripts/random_auto_refresh.html.twig' %}
+        <div class="card  infos-toast">
+                <h4 class="card-header toast-header">Ajax Call</h4>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">idea random rest</h6>
+                <p class="card-text">
+                <ul>
+                    <li><span class="">Ajouter l'implementation jsonSerializable à l'entité</span></li>
+                    <li><span class="">renvoyer un json via la methode jsonSerialize()</span></li>
+                    <li><span class="">definir une route en post</span></li>
+                    <li><span class="">recuperer un element depuis doctrine avec un req sql pur</span></li>
+                    <li><span class="">renvoyer un json </span></li>
+                    <li><span class="">afficher le resultat dnas le front avec javascript</span></li>
+                </ul>
+                </p>
+                <a style="cursor: pointer" onclick="const url = `{{ path('api_random_post') }}`; console.log(url); ajaxPost(url,{},(data) =>{ console.log(JSON.parse(data));updateAboutField(JSON.parse(data)) },true);" methods="POST" class="card-link"><strong>{{ path('api_random_post') }}</strong></a>
+
+
+            </div>
+        </div>
+        <div class="card text-white bg-info">
+                <h4 class="card-header">Rest Exemple</h4>
+            <div class="card-body">
+                <h6 id="rest_title" class="card-subtitle mb-2 ">Title Idea</h6>
+                <p id="rest_descr" class="card-text">
+                    Some quick example text to build on the card title
+                    and make up the bulk of the card's content.
+                </p>
+                <span id="rest_auth" class="card-link muted">Author</span>
+                <span id="rest_date" class="card-link muted">date</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        var btncopy = document.querySelector('.js-copy');
+        if(btncopy) {
+            btncopy.addEventListener('click', docopy);
+        }
+
+        function docopy() {
+
+            // Cible de l'élément qui doit être copié
+            var target = this.dataset.target;
+            var fromElement = document.querySelector(target);
+            if(!fromElement) return;
+
+            // Sélection des caractères concernés
+            var range = document.createRange();
+            var selection = window.getSelection();
+            range.selectNode(fromElement);
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            try {
+                // Exécution de la commande de copie
+                var result = document.execCommand('copy');
+                if (result) {
+                    // La copie a réussi
+                    alert('Copié !');
+                }
+            }
+            catch(err) {
+                // Une erreur est surevnue lors de la tentative de copie
+                alert(err);
+            }
+
+            // Fin de l'opération
+            selection = window.getSelection();
+            if (typeof selection.removeRange === 'function') {
+                selection.removeRange(range);
+            } else if (typeof selection.removeAllRanges === 'function') {
+                selection.removeAllRanges();
+            }
+        }
+    </script>
+{% endblock %}

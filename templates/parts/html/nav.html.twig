@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light ">
+    <a class="navbar-brand" href="#">Bucket-list</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item {{ (controller_name == 'home') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item {{ (controller_name == 'about') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ path('about') }}">About</a>
+            </li>
+            <li class="nav-item {{ (controller_name == 'list') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ path('idea_list') }}">List</a>
+            </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                <li class="nav-item {{ (controller_name == 'add') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('idea_add') }}">Add your Idea</a>
+                </li>
+            {% endif %}
+        </ul>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item secondary">
+                        <a class="nav-link disabled" href="{{ path('home') }}">({{ app.user.username|capitalize }}) <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ path('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item secondary">
+                        <a class="nav-link" href="{{ path('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ path('register') }}">Register</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+        {% form_theme search_form 'bootstrap_4_layout.html.twig' %}
+        <form action="{{ path( 'idea_list') }}" class="form-inline my-2 my-lg-0" name="search" method="post">
+            {{ form_widget(search_form.title,{'attr':{'placeHolder':'Your search...'}}) }}
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            {{ form_end(search_form) }}
+    </div>
+</nav>

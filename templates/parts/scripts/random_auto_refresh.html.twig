@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    function clearRefreshRandom(t) {
+        clearInterval(t);
+    }
+    function initRefreshRandom() {
+        refreshRandom();
+        const timeForRefresh = 5000; // 5sec
+        const t = setInterval(refreshRandom,timeForRefresh);
+        return t;
+    }
+    function refreshRandom(){
+        const q = document.getElementById('citation');
+        const a = document.getElementById('author');
+        const l = document.getElementById('link');
+        const url = "{{ path('api_random_post') }}";
+
+        // console.log(url)
+
+        ajaxPost(url,{},(data) =>{
+            // console.log(data);
+            const dataJSon = JSON.parse(data);
+            // console.log(dataJSon);
+            q.innerText = dataJSon[0].title;
+            a.innerText = dataJSon[0].author;
+            l.href = ("{{ path('idea_detail') }}/" + dataJSon[0].id);
+            l.style.visibility = 'visible';
+        }, true);
+    }
+    function updateAboutField(data){
+        const t = document.getElementById('rest_title');
+        const c = document.getElementById('rest_descr');
+        const a = document.getElementById('rest_auth');
+        const d = document.getElementById('rest_date');
+        t.innerText = data[0].title;
+        c.innerText = data[0].description;
+        a.innerText = data[0].author;
+        let dd = new Date(data[0].dateCreated.date);
+        d.innerText = dd.toLocaleDateString();
+    }
+    function ajaxPost (url, data, callback, isJson = true) {
+        var req = new XMLHttpRequest()
+        req.open('POST', url)
+        req.addEventListener('load', function () {
+            if (req.status >= 200 && req.status < 400) {
+                // Appelle la fonction callback en lui passant la réponse de la requête
+                callback(req.responseText)
+            } else {
+                console.error(req.status + ' ' + req.statusText + ' ' + url)
+            }
+        })
+        req.addEventListener('error', function () {
+            console.error('Erreur réseau avec l\'URL ' + url)
+        })
+        if (isJson) {
+            // Définit le contenu de la requête comme étant du JSON
+            req.setRequestHeader('Content-Type', 'application/json')
+            // Transforme la donnée du format JSON vers le format texte avant l'envoi
+            data = JSON.stringify(data)
+        }
+        req.send(data)
+    }
+</script>

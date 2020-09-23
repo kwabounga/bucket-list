@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+{% block winTitle %} Home {% endblock %}
+{% block title %} Home {% endblock %}
+
+{% block main  %}
+    {% include 'parts/scripts/random_auto_refresh.html.twig' %}
+    <h1>{{ 'Bienvenue sur Bucket-List'}}</h1>
+    <p>BL est une application destinée à lister les choses que l'on veux faire au moins une fois dans sa vie</p>
+    <a id="link" href="#" style="visibility: hidden"><cite class="cite"><q id="citation">bla</q> <label id="author" style="font-size: large">bli</label></cite></a>
+    <p>Alors vous aussi, connectez-vous et ajoutez vos envies</p>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% block winTitle %} {{controller_name|capitalize }}  {% endblock %}
+{% block title %} {{controller_name|capitalize }} {% endblock %}
+{% block main  %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ idea.title }}</h4>
+            <p class="card-text">
+                {{ idea.description }}
+            </p>
+            <span>{{ idea.author }}</span>&nbsp;<span>{{ idea.dateCreated|date}}</span>
+            <div><span>{{ idea.category.name|default('sans categorie')|capitalize}}</span></div>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% if checked %}
+                    <a class="btn btn-block btn-warning" href="{{ path('uncheck', {'id': idea.id}) }}" >uncheck!</a>
+                {% else %}
+                    <a class="btn btn-block btn-success" href="{{ path('check', {'id': idea.id}) }}" >check!</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

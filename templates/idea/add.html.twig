@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block winTitle %} {{controller_name|capitalize }}  {% endblock %}
+{% block title %} {{controller_name|capitalize }} {% endblock %}
+{% block main  %}
+{{ form_start(idea_form)}}
+    {{ form_label(idea_form.title)}}
+    {{ form_widget(idea_form.title)}}
+    {{ form_label(idea_form.description)}}
+    {{ form_widget(idea_form.description)}}
+    {{ form_label(idea_form.author)}}
+    {{ form_widget(idea_form.author,{'attr': {'value': app.user.username}})}}
+    {{ form_label(idea_form.category)}}
+    {{ form_widget(idea_form.category)}}
+<button class="btn btn-success" type="submit">Valider</button>
+{{ form_end(idea_form)}}
+{% endblock %}
