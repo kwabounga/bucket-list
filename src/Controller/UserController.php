@@ -60,4 +60,15 @@ class UserController extends CommonController
     public function logout(){
 
     }
+    /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(){
+        $this->searchForm = $this->createForm(SearchType::class);
+        return $this->render("user/profile.html.twig", [
+            'controller_name' => 'Profile',
+            'search_form' => $this->searchForm->createView(),
+            'user' => $this->getUser(),
+        ]);
+    }
 }

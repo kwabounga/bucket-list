@@ -19,7 +19,7 @@ class RestController extends AbstractController
     private $needAuth = ["error"=>"forbidden, need to authenticate"];
     private $wrongFormat = ["error"=>"Wrong data format"];
     /**
-     * @Route("/idea/random", name="api_random_post", methods={"GET"})
+     * @Route("/idea/random", name="api_random_post", methods={"GET", "POST"})
      * @param EntityManagerInterface $em
      * @return RedirectResponse|Response
      * @throws Exception
@@ -36,7 +36,7 @@ class RestController extends AbstractController
     }
 
     /**
-     * @Route("/idea/{id}", requirements={"id"="\d+"}, name="api_idea_id", methods={"GET"})
+     * @Route("/idea/{id}", requirements={"id"="\d+"}, name="api_idea_id", methods={"GET", "POST"})
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -116,15 +116,19 @@ class RestController extends AbstractController
             if($params['title'] == null || $params['author'] == null || $params['description'] == null){
                 return $this->json($this->wrongFormat);
             } else {
-                $idea = new Idea();
-                $idea->setTitle($params['title']);
-                $idea->setAuthor($params['author']);
-                $idea->setDescription($params['description']);
-                $idea->setIsPublished(true);
-                $idea->setDateCreated(new \DateTime());
+                try {
+                    $idea = new Idea();
+                    $idea->setTitle($params['title']);
+                    $idea->setAuthor($params['author']);
+                    $idea->setDescription($params['description']);
+                    $idea->setIsPublished(true);
+                    $idea->setDateCreated(new \DateTime());
 
-                $em->persist($idea);
-                $em->flush();
+                    $em->persist($idea);
+                    $em->flush();
+                } catch (Exception $exception) {
+                    return $this->json(['error' => $exception->getMessage()]);
+                }
             }
             return $this->json(['user'=>$this->getUser()->getUsername(), 'data' => $idea->jsonSerialize()]);
         }else {

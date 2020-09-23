@@ -8,17 +8,17 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item {{ (controller_name == 'home') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('home') }}">Home{{ (controller_name == 'home') ? '<span class="sr-only">(current)</span>' : '' }}</a>
             </li>
             <li class="nav-item {{ (controller_name == 'about') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ path('about') }}">About</a>
+                <a class="nav-link" href="{{ path('about') }}">About{{ (controller_name == 'about') ? '<span class="sr-only">(current)</span>' : '' }}</a>
             </li>
             <li class="nav-item {{ (controller_name == 'list') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ path('idea_list') }}">List</a>
+                <a class="nav-link" href="{{ path('idea_list') }}">List{{ (controller_name == 'list') ? '<span class="sr-only">(current)</span>' : '' }}</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
                 <li class="nav-item {{ (controller_name == 'add') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ path('idea_add') }}">Add your Idea</a>
+                    <a class="nav-link" href="{{ path('idea_add') }}">Add your Idea{{ (controller_name == 'add') ? '<span class="sr-only">(current)</span>' : '' }}</a>
                 </li>
             {% endif %}
         </ul>
@@ -26,7 +26,7 @@
             <div>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item secondary">
-                        <a class="nav-link disabled" href="{{ path('home') }}">({{ app.user.username|capitalize }}) <span class="sr-only">(current)</span></a>
+                        <a class="nav-link " href="{{ path('profile') }}">({{ app.user.username|capitalize }}) <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ path('logout') }}">Logout</a>

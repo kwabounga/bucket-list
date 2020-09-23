@@ -17,24 +17,15 @@
 <body>
 {% include 'parts/html/nav.html.twig' %}
     <div class="container-fluid">
-
         {% include 'parts/html/toasts.html.twig' %}
         <header>
-
             <h1>{% block title %}Titre Provisoire{% endblock %}</h1>
         </header>
-
-
         <main>
             {% block main %}à remplacer{% endblock %}
         </main>
-
-
-
-
     </div>
     {% include 'parts/html/footer.html.twig' %}
-
     {% include 'parts/scripts/init.html.twig' %}
     {% include 'parts/scripts/highlight.html.twig' %}
 

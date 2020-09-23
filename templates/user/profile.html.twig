@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    profile
+{% endblock %}
+
+{% block winTitle %}
+    profile
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-4">
+            <div><span>{{ user.username }}</span></div>
+            <div><span>{{ user.email }}</span></div>
+            <div><span>{{ user.dateCreated|date }}</span></div>
+
+        </div>
+        <div class="col-8">
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
