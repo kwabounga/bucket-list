@@ -2,11 +2,32 @@
 {% block winTitle %} {{controller_name|capitalize }} {% endblock %}
 {% block title %} {{controller_name|capitalize }} {% endblock %}
 {% block main  %}
-    <h3>liste de chose a faire dans sa vie</h3>
+    <h3>liste de chose a faire dans sa vie</h3>{% if search_tag != '' %}<a href="{{ path('idea_list') }}"><span class="badge badge-danger badge-pill">x</span><span class="badge badge-light">{{ search_tag }}</span></a>{% endif %}
+    <div>
+        <select class="form-control form-control-lg" name="categories_select" id="categories_select">
+            <option value="">--no filter--</option>
+            {% for cat in cats %}
+                <option value="{{ cat.name|lower }}">{{cat.name|capitalize}}</option>
+            {% endfor %}
+        </select>
+        <script>
+            const select = document.getElementById('categories_select');
+            select.addEventListener('change',(evt)=>{
+                console.log(evt.currentTarget.value.toLowerCase());
 
+                if(evt.currentTarget.value.trim() != ''){
+                    $('.idea').css('display','none')
+                    $('.idea[data-cat="'+ evt.currentTarget.value.toLowerCase() +'"]').css('display','block')
+                } else {
+                    $('.idea').css('display','block')
+                }
+            })
+
+        </script>
+    </div>
     <ul class="list-group">
         {% for idea in ideas %}
-                <a id="idea_{{ idea.id }}" class="list-group-item list-group-item-action idea {% for ideaCheked in  checked_json  %} {% if ideaCheked.idea_id == idea.id %} list-group-item-success {% endif %} {% endfor %}" href="{{ path('idea_detail', {'id': idea.id}) }}">{{ idea.title }} <span class="badge badge-primary badge-pill">{{ idea.category.name|default('sans categorie') }}</span></a>
+                <a id="idea_{{ idea.id }}" data-cat="{{ idea.category.name|default('sans categorie')|lower }}" class="list-group-item list-group-item-action idea {% for ideaCheked in  checked_json  %} {% if ideaCheked.idea_id == idea.id %} list-group-item-success {% endif %} {% endfor %}" href="{{ path('idea_detail', {'id': idea.id}) }}">{{ idea.title }} <span class="badge badge-primary badge-pill badgef">{{ idea.category.name|default('sans categorie') }}</span></a>
         {% endfor %}
     </ul>
 

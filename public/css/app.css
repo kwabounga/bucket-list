@@ -14,7 +14,7 @@ main {
     margin-top: 2em;
 
 }
-.badge{
+.badgef{
     float: right;
 }
 .logo-footer{
@@ -44,7 +44,9 @@ main {
     background-color: lightsalmon;
 }
 .cite{
-    font-size: 3em;
+    font-size: 4em;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 #link{
     text-decoration: none;

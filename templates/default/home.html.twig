@@ -5,9 +5,59 @@
 {% block main  %}
     {% include 'parts/scripts/random_auto_refresh.html.twig' %}
     <h1>{{ 'Bienvenue sur Bucket-List'}}</h1>
-    <p>BL est une application destinée à lister les choses que l'on veux faire au moins une fois dans sa vie</p>
-    <a id="link" href="#" style="visibility: hidden"><cite class="cite"><q id="citation">bla</q> <label id="author" style="font-size: large">bli</label></cite></a>
-    <p>Alors vous aussi, connectez-vous et ajoutez vos envies</p>
 
+    <div class="row">
+        <div class="col-md-12 col-lg-8">
+            <p>BL est une application destinée à lister les choses que l'on veux faire au moins une fois dans sa vie</p>
+            <div class="d-flex flex-column">
+                <div class="p-2 bg-light">
+                    <a id="link" href="#" style="visibility: hidden"><cite class="cite"><q id="citation">bla</q> <label id="author" style="font-size: large">bli</label></cite></a>
+                </div>
+            </div>
+
+            <p>Alors vous aussi, connectez-vous et ajoutez vos envies</p>
+
+        </div>
+        <div class="col-lg-4 d-none d-lg-block">
+            <div class="d-flex flex-column">
+                <div class="p-2 bg-light">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Utilisation de l'api</h4>
+                            <p class="card-text">
+                            <ul>
+                                <li><span class="badge badge-success">GET</span><pre><code class="">{{ path('home') }}/api/v1/idea/random</code></pre></li>
+                                <li><span class="badge badge-success">GET</span><pre><code class="">{{ path('home') }}/api/v1/idea/:id</code></pre></li>
+                                <li><span class="badge badge-success">GET</span><pre><code class="">{{ path('home') }}/api/v1/idea/all/:limit/:offset</code></pre></li>
+
+                            </ul>
+                            </p>
+                            <a href="{{ path('about') }}" class="card-link">Test via page a propos</a>
+                        </div>
+                    </div>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Utilisateurs enregistrés</h4>
+                            <p class="card-text">
+                            <ul>
+                                <li><span class="badge badge-warning">PUT</span><pre><code class="">{{ path('home') }}/api/v1/idea/insert</code></pre></li>
+                            </ul>
+                            </p>
+                            <a href="{{ path('about') }}" class="card-link">Test via page a propos</a>
+                        </div>
+                    </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Acces restreint</h4>
+                    </div>
+                </div>
+
+            {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

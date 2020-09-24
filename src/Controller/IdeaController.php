@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Checked;
 use App\Entity\Idea;
 use App\Form\IdeaType;
@@ -43,10 +44,15 @@ class IdeaController extends CommonController
         $this->searchForm = $this->createForm(SearchType::class);
         $this->searchForm->handleRequest($request);
 
+        /*categories*/
+        $catRepo = $this->getDoctrine()->getRepository(Category::class);
+        $cats = $catRepo->findAll();
+
+        /*ideas*/
         $ideaRepo = $this->getDoctrine()->getRepository(Idea::class);
         $ideas = $ideaRepo->findAll();
 
-
+        $searchTag = '';
         if($this->searchForm->isSubmitted()){
             $title = $this->searchForm->getData()->getTitle();
 
@@ -60,6 +66,7 @@ class IdeaController extends CommonController
                 }
             } else {
                 $ideas = $datas;
+                $searchTag = $title;
             }
         }
 
@@ -70,6 +77,8 @@ class IdeaController extends CommonController
             'ideas' => $ideas,
             'search_form' => $this->searchForm->createView(),
             'checked_json' => $checkedJson,
+            'cats' => $cats,
+            'search_tag' => $searchTag,
         ];
         return $this->render('idea/list.html.twig', $arg);
     }

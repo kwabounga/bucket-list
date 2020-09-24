@@ -86,7 +86,7 @@
                     <li><span class="">afficher le resultat dnas le front avec javascript</span></li>
                 </ul>
                 </p>
-                <a style="cursor: pointer" onclick="const url = `{{ path('api_random_post') }}`; console.log(url); ajaxPost(url,{},(data) =>{ console.log(JSON.parse(data));updateAboutField(JSON.parse(data)) },true);" methods="POST" class="card-link"><strong>{{ path('api_random_post') }}</strong></a>
+                <a class="btn btn-lg btn-light" style="cursor: pointer" onclick="const url = `{{ path('api_random_post') }}`; console.log(url); ajaxPost(url,{},(data) =>{ console.log(JSON.parse(data));updateAboutField(JSON.parse(data)) },true);" methods="POST"><strong>{{ path('api_random_post') }}</strong></a>
 
 
             </div>
@@ -105,15 +105,18 @@
         </div>
     </div>
     <script>
-        var btncopy = document.querySelector('.js-copy');
+        /*var btncopy = document.querySelector('.js-copy');
         if(btncopy) {
             btncopy.addEventListener('click', docopy);
-        }
+       } */
+        $('.js-copy').click((evt)=>{
+            docopy(evt.target)
+        })
 
-        function docopy() {
-
+        function docopy(elmt) {
+            console.log(elmt)
             // Cible de l'élément qui doit être copié
-            var target = this.dataset.target;
+            var target = elmt.dataset.target;
             var fromElement = document.querySelector(target);
             if(!fromElement) return;
 
