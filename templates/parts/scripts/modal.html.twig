@@ -1,0 +1,38 @@
+<script>
+    function confirm(){
+
+        $('#sureModal').on('show.bs.modal', function (event) {
+            let txt = "Vous etes sur le point de supprimer Votre Compte! ";
+            txt += "\n Cette action ne peut pas etre annulée.";
+            let modal = $(this);
+            modal.find('.modal-title').text("Etes vous sur?");
+            modal.find('.modal-body').text(txt);
+            modal.find('.modal-btmconfirm').on('mouseup', function(){
+                hideModalAndDelete();
+            })
+        })
+        $('#sureModal').modal('show');
+    }
+
+    // valide la suppression et  masque la modale
+    // l'invalidation se fait par le bouton annuler directement dans la modale car ne transmet pas la demande de suppression
+    function hideModalAndDelete(){
+        $('#sureModal').modal('hide');
+        deleteAccount();
+
+    }
+    // function pour delete l'account
+    function deleteAccount(){
+
+        document.location.href="{{ path('delete') }}";
+
+    }
+    function showSpoiler(obj)
+    {
+        var inner = obj.parentNode.getElementsByTagName("div")[0];
+        if (inner.style.display == "none")
+            inner.style.display = "";
+        else
+            inner.style.display = "none";
+    }
+</script>
