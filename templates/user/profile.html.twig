@@ -42,7 +42,12 @@
                                 <li><span class="badge badge-warning">PUT</span><code class="">{{ path('home') }}api/v1/idea/insert</code>
                                 <pre><code class="sh" id="toCopy">curl --location --request PUT "http://{{ app.request.server.get('SERVER_NAME') }}{{path('api_idea_insert')}}?title=tank%20you&author=kung%20fury&description=I%27m%20ALSO%20a%20cop...from%20the%20future.%20I%20was%20sent%20back%20in%20time%20to%20kill%20Hitler,%20but%20I%20accidentally%20went%20back%20too%20far%20in%20time%20and%20ended%20up%20in%20this%20place." --header "Authorization: Basic {{ user.basicEnc }}"</code></pre></li>
                             </ul>
-                            <br><input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy">
+                            <input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy">
+                            <ul>
+                                <li><span class="badge badge-success">GET</span><code class="">{{ path('home') }}api/v1/categories/all</code>
+                                <pre><code class="sh" id="toCopy2">curl --location --request PUT "http://{{ app.request.server.get('SERVER_NAME') }}{{path('api_categories_all')}}" --header "Authorization: Basic {{ user.basicEnc }}"</code></pre></li>
+                            </ul>
+                            <input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy2">
                             </p>
                             <a href="{{ path('about') }}" class="card-link">Test via page a propos</a>
                         </div>
