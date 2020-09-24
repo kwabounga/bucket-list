@@ -10,14 +10,14 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-4">
+        <div class="col-md-12 col-lg-4">
             <div><span>{{ user.username }}</span></div>
             <div><span>{{ user.email }}</span></div>
             <div><span>{{ user.dateCreated|date }}</span></div>
             <a onclick="confirm()" type="button"class="btn btn-danger">DELETE ACCOUNT</a>
 
         </div>
-        <div class="col-8">
+        <div class="col-md-12 col-lg-8">
             <div class="d-flex flex-column">
                 <div class="p-2 bg-light">
                     <div class="card">
@@ -40,7 +40,7 @@
                             <p class="card-text">
                             <ul>
                                 <li><span class="badge badge-warning">PUT</span><code class="">{{ path('home') }}api/v1/idea/insert</code>
-                                <pre><code class="sh">curl --location --request PUT 'http://[hostname]{{path('api_idea_insert')}}?title=tank%20you&author=kung%20fury&description=I%27m%20ALSO%20a%20cop...from%20the%20future.%20I%20was%20sent%20back%20in%20time%20to%20kill%20Hitler,%20but%20I%20accidentally%20went%20back%20too%20far%20in%20time%20and%20ended%20up%20in%20this%20place.' \
+                                <pre><code class="sh">curl --location --request PUT 'http://{{ app.request.server.get('SERVER_NAME') }}{{path('api_idea_insert')}}?title=tank%20you&author=kung%20fury&description=I%27m%20ALSO%20a%20cop...from%20the%20future.%20I%20was%20sent%20back%20in%20time%20to%20kill%20Hitler,%20but%20I%20accidentally%20went%20back%20too%20far%20in%20time%20and%20ended%20up%20in%20this%20place.' \
 --header 'Authorization: Basic {{ user.basicEnc }}'</code></pre></li>
                             </ul>
                             </p>
