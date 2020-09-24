@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Idea;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -99,11 +100,11 @@ class RestController extends AbstractController
         $ideas = $ideaRepo->all($limit, $offset, $em);
 
         if($ideas){
-//            $jSonIdeas = [];
+            /*$jSonIdeas = [];
             foreach ($ideas as $idea){
                 array_push($jSonIdeas, $idea->jsonSerialize());
-            }
-            return  $this->json($jSonIdeas);
+            }*/
+            return  $this->json($ideas);
         }
         return $this->json($this->notFound);
     }
@@ -134,5 +135,24 @@ class RestController extends AbstractController
         }else {
             return $this->json($this->needAuth);
         }
+    }
+    /**
+     * @Route("/categories/all", name="api_categories_all", methods={"GET"})
+     * @return RedirectResponse|Response
+     */
+    public function categories() {
+        $cats = null;
+        if($this->isGranted('ROLE_USER')){
+            $catsRepo = $this->getDoctrine()->getRepository(Category::class);
+            $cats = $catsRepo->findAll();
+            if($cats != null){
+               return  $this->json($cats);
+            }
+        }
+        return $this->json($this->needAuth);
+
+
+
+
     }
 }

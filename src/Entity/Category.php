@@ -6,11 +6,12 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Category
+class Category implements  JsonSerializable
 {
     /**
      * @ORM\Id
@@ -68,5 +69,12 @@ class Category
 
     public function __construct(){
         $this->ideas = new ArrayCollection();
+    }
+    public function jsonSerialize()
+    {
+        return array(
+            'id'=> $this->getId(),
+            'name' => $this->getName(),
+        );
     }
 }
