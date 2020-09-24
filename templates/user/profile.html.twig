@@ -14,11 +14,101 @@
             <div><span>{{ user.username }}</span></div>
             <div><span>{{ user.email }}</span></div>
             <div><span>{{ user.dateCreated|date }}</span></div>
+            <a onclick="confirm()" type="button"class="btn btn-danger">DELETE ACCOUNT</a>
 
         </div>
         <div class="col-8">
+            <div class="d-flex flex-column">
+                <div class="p-2 bg-light">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Api rest</h4>
+                            <p class="card-text">
+                            <ul>
+                                <li><span class="badge badge-success">GET</span><code class="">{{ path('home') }}api/v1/idea/random</code></li>
+                                <li><span class="badge badge-success">GET</span><code class="">{{ path('home') }}api/v1/idea/:id</code></li>
+                                <li><span class="badge badge-success">GET</span><code class="">{{ path('home') }}api/v1/idea/all/:limit/:offset</code></li>
 
+                            </ul>
+                            </p>
 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Insertion</h4>
+                            <p class="card-text">
+                            <ul>
+                                <li><span class="badge badge-warning">PUT</span><code class="">{{ path('home') }}api/v1/idea/insert</code>
+                                <pre><code class="sh">curl --location --request PUT 'http://[hostname]{{path('api_idea_insert')}}?title=tank%20you&author=kung%20fury&description=I%27m%20ALSO%20a%20cop...from%20the%20future.%20I%20was%20sent%20back%20in%20time%20to%20kill%20Hitler,%20but%20I%20accidentally%20went%20back%20too%20far%20in%20time%20and%20ended%20up%20in%20this%20place.' \
+--header 'Authorization: Basic {{ user.basicEnc }}'</code></pre></li>
+                            </ul>
+                            </p>
+                            <a href="{{ path('about') }}" class="card-link">Test via page a propos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function confirm(){
+
+            $('#sureModal').on('show.bs.modal', function (event) {
+                let txt = "Vous etes sur le point de supprimer Votre Compte! ";
+                txt += "\n Cette action ne peut pas etre annulée.";
+                let modal = $(this);
+                modal.find('.modal-title').text("Etes vous sur?");
+                modal.find('.modal-body').text(txt);
+                modal.find('.modal-btmconfirm').on('mouseup', function(){
+                    hideModalAndDelete();
+                })
+            })
+            $('#sureModal').modal('show');
+        }
+
+        // valide la suppression et  masque la modale
+        // l'invalidation se fait par le bouton annuler directement dans la modale car ne transmet pas la demande de suppression
+        function hideModalAndDelete(){
+            $('#sureModal').modal('hide');
+            deleteAccount();
+
+        }
+        // function pour delete l'account
+        function deleteAccount(){
+
+            document.location.href="{{ path('delete') }}";
+
+        }
+        function showSpoiler(obj)
+        {
+            var inner = obj.parentNode.getElementsByTagName("div")[0];
+            if (inner.style.display == "none")
+                inner.style.display = "";
+            else
+                inner.style.display = "none";
+        }
+    </script>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="sureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleModal">Titre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    corps
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger modal-btmconfirm" >Confirmer</button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

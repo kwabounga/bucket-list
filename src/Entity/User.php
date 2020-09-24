@@ -44,6 +44,26 @@ class User implements UserInterface
 
     // pas sauvegarde en base
     private $roles;
+    /**
+     * @ORM\Column (type="string", length=255, nullable=true)
+     */
+    private $basicEnc;
+
+    /**
+     * @return mixed
+     */
+    public function getBasicEnc()
+    {
+        return $this->basicEnc;
+    }
+
+    /**
+     * @param mixed $basicEnc
+     */
+    public function setBasicEnc($basicEnc): void
+    {
+        $this->basicEnc = $basicEnc;
+    }
 
     /**
      * @return mixed
@@ -125,6 +145,26 @@ class User implements UserInterface
     public function getSalt(){ return null; }
     public function eraseCredentials(){ return null; }
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Checked", mappedBy="user",cascade={"remove"});
+     */
+    private $checkeds;
+
+    /**
+     * @return mixed
+     */
+    public function getCheckeds()
+    {
+        return $this->checkeds;
+    }
+
+    /**
+     * @param mixed $checkeds
+     */
+    public function setChecked($checkeds): void
+    {
+        $this->checkeds = $checkeds;
+    }
 
 
 }

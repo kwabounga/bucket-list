@@ -26,12 +26,13 @@ class UserController extends CommonController
         if($registerForm->isSubmitted() && $registerForm->isValid()){
             $user->setDateCreated(new \DateTime());
             $d = new \DateTime();
-
+            $basic = base64_encode($user->getUsername().":".$user->getPassword());
+            $user->setBasicEnc($basic);
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $em->persist($user);
             $em->flush();
-
+            return $this->redirectToRoute('login');
         }
         return $this->render('user/register.html.twig', [
             'controller_name' => 'UserController',
@@ -70,5 +71,20 @@ class UserController extends CommonController
             'search_form' => $this->searchForm->createView(),
             'user' => $this->getUser(),
         ]);
+    }
+    /**
+     * @Route("/delete", name="delete")
+     */
+    public function delete(EntityManagerInterface $em , Request $request){
+        if($this->isGranted('ROLE_USER')){
+            $user = $this->getUser();
+            //$eUser = $em->getRepository(User::class)->findOneBy(['username'=> $user->getUsername()]);
+            $em->remove($user);
+            $em->flush();
+            $this->get('security.token_storage')->setToken(null);
+            $request->getSession()->invalidate();
+
+        }
+        return $this->redirectToRoute('home');
     }
 }
