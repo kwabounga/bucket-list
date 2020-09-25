@@ -14,8 +14,11 @@
                     <a id="link" href="#" style="visibility: hidden"><cite class="cite"><q id="citation">bla</q> <label id="author" style="font-size: large">bli</label></cite></a>
                 </div>
             </div>
-
-            <p>Alors vous aussi, connectez-vous et ajoutez vos envies</p>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                <p>N'hésitez pas utilisez bucket-list pour <a href="{{  path('idea_add') }}">ajouter vos envies</a></p>
+            {% else%}
+                <p>Alors vous aussi, <a href="{{ path('login') }}">connectez-vous</a> et ajoutez vos envies</p>
+            {% endif%}
 
         </div>
         <div class="col-lg-4 d-none d-lg-block">

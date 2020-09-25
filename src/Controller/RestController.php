@@ -148,8 +148,10 @@ class RestController extends AbstractController
             if($cats != null){
                return  $this->json($cats);
             }
+        } else {
+            return $this->json($this->needAuth);
         }
-        return $this->json($this->needAuth);
+
 
 
 

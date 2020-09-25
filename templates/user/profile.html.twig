@@ -45,7 +45,7 @@
                             <input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy">
                             <ul>
                                 <li><span class="badge badge-success">GET</span><code class="">{{ path('home') }}api/v1/categories/all</code>
-                                <pre><code class="sh" id="toCopy2">curl --location --request PUT "http://{{ app.request.server.get('SERVER_NAME') }}{{path('api_categories_all')}}" --header "Authorization: Basic {{ user.basicEnc }}"</code></pre></li>
+                                <pre><code class="sh" id="toCopy2">curl --location --request GET "http://{{ app.request.server.get('SERVER_NAME') }}{{path('api_categories_all')}}" --header "Authorization: Basic {{ user.basicEnc }}"</code></pre></li>
                             </ul>
                             <input type="button" value="Copier" class="js-copy btn btn-sm btn-outline-secondary" data-target="#toCopy2">
                             </p>
